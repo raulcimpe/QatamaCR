@@ -336,3 +336,12 @@ main > .wp-block-post-content.alignfull, main > .alignfull { margin-top: 0; }
 }
 .qcr-enlace-volver a { text-decoration: none; font-weight: 600; }
 .wp-site-blocks > footer, .wp-site-blocks > main { margin-block-start: 0; }
+
+/* Logo de cabecera (con tejado): tamaño adaptado a cada pantalla */
+.qcr-header .wp-block-site-logo img { width: clamp(170px, 18vw, 230px); }
+.qcr-header-tel { margin: 0; white-space: nowrap; font-weight: 700; }
+.qcr-header-tel a { color: var(--wp--preset--color--berenjena); text-decoration: none; }
+.qcr-header-tel a::before { content: "☎\FE0E" / ""; margin-right: 0.35rem; color: var(--wp--preset--color--burdeos); }
+@media (max-width: 1100px) { .qcr-header-tel { display: none !important; } }
+.qcr-hero .wp-block-column > .wp-block-group { align-items: stretch; }
+.qcr-hero h1 { text-wrap: wrap; font-size: clamp(2.25rem, 4vw, 3.25rem) !important; }
