@@ -5,15 +5,65 @@
 .qcr-campo { display: grid; gap: 0.35rem; }
 .qcr-campo label { font-weight: 700; color: var(--qcr-c-principal); }
 .qcr-opcional { font-weight: 400; color: var(--wp--preset--color--texto-suave, #5F5266); font-size: 0.9em; }
-.qcr-campo input[type="text"], .qcr-campo input[type="email"], .qcr-campo input[type="tel"], .qcr-campo select, .qcr-campo textarea {
-	width: 100%; box-sizing: border-box; font: inherit; color: inherit;
-	padding: 0.75rem 0.9rem; min-height: 48px;
-	background: #fff; border: 1.5px solid var(--qcr-c-borde); border-radius: 6px;
-	transition: border-color 150ms ease, box-shadow 150ms ease;
+.qcr-campo input[type="text"], .qcr-campo input[type="email"], .qcr-campo input[type="tel"], .qcr-campo select, .qcr-campo textarea, .qcr-selector__boton {
+	width: 100%; box-sizing: border-box; font: inherit; color: var(--wp--preset--color--texto, #2A2230);
+	padding: 0.75rem 0.95rem; min-height: 50px; line-height: 1.4;
+	background: #fff; border: 1.5px solid var(--qcr-c-borde); border-radius: 8px;
+	box-shadow: 0 1px 2px rgba(44, 8, 52, 0.06);
+	transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
+.qcr-campo input::placeholder, .qcr-campo textarea::placeholder { color: #7A6E80; opacity: 1; }
 .qcr-campo textarea { min-height: 9rem; resize: vertical; }
-.qcr-campo input:focus, .qcr-campo select:focus, .qcr-campo textarea:focus { outline: none; border-color: var(--qcr-c-principal); box-shadow: 0 0 0 3px rgba(180, 67, 59, 0.35); }
-.qcr-campo.has-error input, .qcr-campo.has-error textarea { border-color: var(--qcr-c-error); }
+.qcr-campo input:hover, .qcr-campo select:hover, .qcr-campo textarea:hover, .qcr-selector__boton:hover { border-color: var(--wp--preset--color--berenjena-medio, #5A2A63); }
+.qcr-campo input:focus, .qcr-campo select:focus, .qcr-campo textarea:focus, .qcr-selector__boton:focus { outline: none; border-color: var(--wp--preset--color--burdeos, #661514); box-shadow: 0 0 0 3px rgba(180, 67, 59, 0.3); }
+.qcr-campo.has-error input, .qcr-campo.has-error textarea, .qcr-campo.has-error select, .qcr-campo.has-error .qcr-selector__boton { border-color: var(--qcr-c-error); }
+
+/* Select nativo (sin JavaScript): flecha propia de marca */
+.qcr-campo select {
+	-webkit-appearance: none; appearance: none; cursor: pointer; padding-right: 2.75rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4.5 7.5 10 13l5.5-5.5' fill='none' stroke='%23661514' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat; background-position: right 0.95rem center; background-size: 1.1rem;
+}
+.qcr-campo select option { color: #2A2230; background: #fff; }
+
+/* Desplegable con estilo de marca (selector.js) */
+.qcr-selector { position: relative; }
+.qcr-selector__nativo { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; pointer-events: none; }
+.qcr-selector__boton { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; cursor: pointer; text-align: left; user-select: none; }
+.qcr-selector__valor { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qcr-selector.is-vacio .qcr-selector__valor { color: #6B5F70; }
+.qcr-selector__flecha { flex: 0 0 auto; width: 1.1rem; height: 1.1rem; color: var(--wp--preset--color--burdeos, #661514); transition: transform 180ms ease; }
+.qcr-selector.is-abierto .qcr-selector__boton { border-color: var(--wp--preset--color--burdeos, #661514); }
+.qcr-selector.is-abierto .qcr-selector__flecha { transform: rotate(180deg); }
+.qcr-selector__lista {
+	position: absolute; z-index: 50; left: 0; right: 0; top: calc(100% + 6px);
+	margin: 0; padding: 0.4rem; list-style: none; max-height: min(26rem, 62vh); overflow-y: auto; overscroll-behavior: contain;
+	background: #fff; border: 1.5px solid var(--wp--preset--color--lila-claro, #E3D6E6); border-radius: 10px;
+	box-shadow: 0 14px 34px rgba(44, 8, 52, 0.18), 0 3px 8px rgba(44, 8, 52, 0.08);
+	animation: qcr-selector-entrar 140ms ease-out;
+}
+.qcr-selector.is-arriba .qcr-selector__lista { top: auto; bottom: calc(100% + 6px); }
+.qcr-selector__lista[hidden] { display: none; }
+.qcr-selector__opcion {
+	position: relative; display: flex; align-items: center; min-height: 44px; box-sizing: border-box;
+	padding: 0.55rem 2.4rem 0.55rem 0.85rem; margin: 0; border-radius: 6px; cursor: pointer;
+	color: var(--wp--preset--color--texto, #2A2230); line-height: 1.35;
+}
+.qcr-selector__opcion.is-vacia { color: #6B5F70; }
+.qcr-selector__opcion.is-activa { background: #F6ECEA; color: var(--wp--preset--color--burdeos, #661514); }
+.qcr-selector__opcion[aria-selected="true"] { background: var(--wp--preset--color--berenjena, #2C0834); color: #fff; font-weight: 700; }
+.qcr-selector__opcion[aria-selected="true"].is-activa { background: var(--wp--preset--color--burdeos, #661514); color: #fff; }
+.qcr-selector__opcion[aria-selected="true"]::after {
+	content: ""; position: absolute; right: 0.9rem; top: 50%; width: 0.4rem; height: 0.75rem; margin-top: -0.45rem;
+	border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+}
+.qcr-selector__opcion.is-vacia[aria-selected="true"] { background: transparent; color: #6B5F70; font-weight: 400; }
+.qcr-selector__opcion.is-vacia[aria-selected="true"]::after { display: none; }
+.qcr-selector__opcion.is-vacia.is-activa { background: #F6ECEA; color: var(--wp--preset--color--burdeos, #661514); }
+.qcr-selector__opcion[aria-disabled="true"] { opacity: 0.5; cursor: default; }
+@keyframes qcr-selector-entrar { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .qcr-selector__lista { animation: none; } .qcr-selector__flecha { transition: none; } }
+@media (forced-colors: active) { .qcr-selector__opcion.is-activa, .qcr-selector__opcion[aria-selected="true"] { outline: 2px solid Highlight; } }
 .qcr-error { color: var(--qcr-c-error); font-weight: 600; margin: 0; font-size: 0.92rem; }
 .qcr-ayuda { margin: 0; font-size: 0.9rem; color: var(--wp--preset--color--texto-suave, #5F5266); }
 .qcr-campo--check { grid-template-columns: auto 1fr; align-items: start; gap: 0.6rem; }
