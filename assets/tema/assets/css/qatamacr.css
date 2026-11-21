@@ -36,13 +36,39 @@ img, svg, video { max-width: 100%; height: auto; }
 	top: 0;
 	z-index: 50;
 }
+/* El fondo translúcido va en un pseudo-elemento: si backdrop-filter estuviera en la propia
+   cabecera, el menú móvil (position: fixed) quedaría encerrado dentro de ella y la página se bloquearía. */
 .qcr-header {
-	background: rgba(250, 247, 245, 0.97);
+	position: relative;
+	isolation: isolate;
+	background: transparent;
 	border-bottom: 1px solid var(--wp--preset--color--borde);
 }
-@supports (backdrop-filter: blur(8px)) {
-	.qcr-header { background: rgba(250, 247, 245, 0.88); backdrop-filter: blur(8px); }
+.qcr-header::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: rgba(250, 247, 245, 0.97);
+	pointer-events: none;
 }
+@supports (backdrop-filter: blur(8px)) {
+	.qcr-header::before { background: rgba(250, 247, 245, 0.88); backdrop-filter: blur(8px); }
+}
+/* Con el menú móvil abierto, la cabecera (y su menú) por encima de todo, incluido el botón de WhatsApp. */
+html.has-modal-open .wp-site-blocks > header.wp-block-template-part { z-index: 100001; }
+.wp-block-navigation__responsive-container.is-menu-open {
+	background: var(--wp--preset--color--fondo, #FAF7F5) !important;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content,
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container { align-items: flex-start !important; }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container { width: 100%; }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:not(.qcr-solo-movil) { width: 100%; justify-content: flex-start !important; align-items: flex-start !important; text-align: left; border-bottom: 1px solid var(--wp--preset--color--borde); padding-bottom: 0.9rem; }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:not(.qcr-solo-movil) > a { color: var(--wp--preset--color--berenjena) !important; font-family: var(--wp--preset--font-family--titulares); }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item > a[aria-current="page"] { color: var(--wp--preset--color--burdeos) !important; }
+.wp-block-navigation__responsive-container-close, .wp-block-navigation__responsive-container-open { color: var(--wp--preset--color--berenjena); }
 .admin-bar .wp-site-blocks > header.wp-block-template-part { top: var(--wp-admin--admin-bar--height, 32px); }
 @media (max-width: 600px) { .admin-bar .wp-site-blocks > header.wp-block-template-part { top: 0; } }
 
