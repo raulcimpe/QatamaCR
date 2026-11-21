@@ -36,15 +36,21 @@
 .qcr-dato__valor a { text-decoration: none; font-weight: 600; }
 .qcr-dato__valor a:hover { text-decoration: underline; }
 
-/* Botones de WhatsApp */
-.qcr-wa-boton a { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.4rem; border-radius: 6px; font-weight: 700; text-decoration: none; border: 2px solid transparent; transition: background-color 150ms ease, color 150ms ease; }
-.qcr-wa-boton--oscuro a { background: #0E6E5C; color: #fff; }
-.qcr-wa-boton--oscuro a:hover, .qcr-wa-boton--oscuro a:focus { background: #0A5446; color: #fff; }
-.qcr-wa-boton--claro a { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.85); }
-.qcr-wa-boton--claro a:hover, .qcr-wa-boton--claro a:focus { background: #fff; color: #0E6E5C; }
+/* Botones de WhatsApp (selectores reforzados para que ningún estilo del tema los sobrescriba) */
+body .qcr-wa-boton a { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.4rem; border-radius: 6px; font-weight: 700; text-decoration: none; border: 2px solid transparent; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease; }
+body .qcr-wa-boton.qcr-wa-boton--oscuro a { background: #0E6E5C; color: #fff; border-color: #0E6E5C; }
+body .qcr-wa-boton.qcr-wa-boton--oscuro a:hover,
+body .qcr-wa-boton.qcr-wa-boton--oscuro a:focus-visible { background: #0A5446; color: #fff; border-color: #0A5446; }
+body .qcr-wa-boton.qcr-wa-boton--claro a { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.9); }
+body .qcr-wa-boton.qcr-wa-boton--claro a:hover,
+body .qcr-wa-boton.qcr-wa-boton--claro a:focus-visible { background: #fff; color: #0E6E5C; border-color: #fff; }
+body .qcr-wa-boton a .qcr-wa-icono { color: inherit; flex: none; }
+body .qcr-wa-boton a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+body .qcr-wa-boton.qcr-wa-boton--oscuro a:focus-visible { outline-color: #B4433B; }
 .qcr-wa-boton--centro { text-align: center; }
 .qcr-wa-flotante { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; background: #0E6E5C; color: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); transition: transform 150ms ease, background-color 150ms ease; }
-.qcr-wa-flotante:hover, .qcr-wa-flotante:focus { background: #0A5446; color: #fff; }
+body .qcr-wa-flotante, body .qcr-wa-flotante:hover, body .qcr-wa-flotante:focus { color: #fff; }
+.qcr-wa-flotante:hover, .qcr-wa-flotante:focus { background: #0A5446; }
 .qcr-wa-flotante .qcr-wa-icono { width: 1.9rem; height: 1.9rem; }
 @media (prefers-reduced-motion: no-preference) { .qcr-wa-flotante:hover { transform: scale(1.06); } }
 
