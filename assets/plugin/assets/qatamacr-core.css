@@ -1,0 +1,56 @@
+/* QatamaCR Core: formulario, WhatsApp y avisos. Usa los colores del tema si existen. */
+.qcr-form-wrap { --qcr-c-principal: var(--wp--preset--color--berenjena, #2C0834); --qcr-c-borde: #8C7F90; --qcr-c-error: #A1271F; --qcr-c-ok: #1D6B45; }
+.qcr-form { display: grid; gap: 1.1rem; }
+.qcr-form-fila { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.qcr-campo { display: grid; gap: 0.35rem; }
+.qcr-campo label { font-weight: 700; color: var(--qcr-c-principal); }
+.qcr-opcional { font-weight: 400; color: var(--wp--preset--color--texto-suave, #5F5266); font-size: 0.9em; }
+.qcr-campo input[type="text"], .qcr-campo input[type="email"], .qcr-campo input[type="tel"], .qcr-campo select, .qcr-campo textarea {
+	width: 100%; box-sizing: border-box; font: inherit; color: inherit;
+	padding: 0.75rem 0.9rem; min-height: 48px;
+	background: #fff; border: 1.5px solid var(--qcr-c-borde); border-radius: 6px;
+	transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.qcr-campo textarea { min-height: 9rem; resize: vertical; }
+.qcr-campo input:focus, .qcr-campo select:focus, .qcr-campo textarea:focus { outline: none; border-color: var(--qcr-c-principal); box-shadow: 0 0 0 3px rgba(180, 67, 59, 0.35); }
+.qcr-campo.has-error input, .qcr-campo.has-error textarea { border-color: var(--qcr-c-error); }
+.qcr-error { color: var(--qcr-c-error); font-weight: 600; margin: 0; font-size: 0.92rem; }
+.qcr-ayuda { margin: 0; font-size: 0.9rem; color: var(--wp--preset--color--texto-suave, #5F5266); }
+.qcr-campo--check { grid-template-columns: auto 1fr; align-items: start; gap: 0.6rem; }
+.qcr-campo--check input { width: 1.3rem; height: 1.3rem; margin-top: 0.2rem; accent-color: var(--qcr-c-principal); }
+.qcr-campo--check label { font-weight: 400; color: inherit; }
+.qcr-info-rgpd { font-size: 0.82rem; line-height: 1.5; color: var(--wp--preset--color--texto-suave, #5F5266); margin: 0; padding: 0.8rem 1rem; background: var(--wp--preset--color--superficie, #F2EBE8); border-radius: 6px; }
+.qcr-form-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+.qcr-form-enviar button { cursor: pointer; font: inherit; font-weight: 700; }
+.qcr-form-aviso { padding: 1rem 1.25rem; border-radius: 6px; margin-bottom: 1.5rem; border-left: 5px solid; }
+.qcr-form-aviso p { margin: 0 0 0.35rem; }
+.qcr-form-aviso ul { margin: 0.25rem 0 0; }
+.qcr-form-aviso--ok { background: #E7F4EC; border-color: var(--qcr-c-ok); color: #123F29; }
+.qcr-form-aviso--error { background: #FBEAE8; border-color: var(--qcr-c-error); color: #5E1611; }
+.qcr-form-aviso--error a { color: #5E1611; }
+
+/* Datos de contacto */
+.qcr-dato { margin: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+.qcr-dato__etiqueta { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wp--preset--color--teja, #B4433B); }
+.qcr-footer .qcr-dato__etiqueta { color: var(--wp--preset--color--rosa-teja, #E7B9B4); }
+.qcr-dato__valor a { text-decoration: none; font-weight: 600; }
+.qcr-dato__valor a:hover { text-decoration: underline; }
+
+/* Botones de WhatsApp */
+.qcr-wa-boton a { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.4rem; border-radius: 6px; font-weight: 700; text-decoration: none; border: 2px solid transparent; transition: background-color 150ms ease, color 150ms ease; }
+.qcr-wa-boton--oscuro a { background: #0E6E5C; color: #fff; }
+.qcr-wa-boton--oscuro a:hover, .qcr-wa-boton--oscuro a:focus { background: #0A5446; color: #fff; }
+.qcr-wa-boton--claro a { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.85); }
+.qcr-wa-boton--claro a:hover, .qcr-wa-boton--claro a:focus { background: #fff; color: #0E6E5C; }
+.qcr-wa-boton--centro { text-align: center; }
+.qcr-wa-flotante { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; background: #0E6E5C; color: #fff; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); transition: transform 150ms ease, background-color 150ms ease; }
+.qcr-wa-flotante:hover, .qcr-wa-flotante:focus { background: #0A5446; color: #fff; }
+.qcr-wa-flotante .qcr-wa-icono { width: 1.9rem; height: 1.9rem; }
+@media (prefers-reduced-motion: no-preference) { .qcr-wa-flotante:hover { transform: scale(1.06); } }
+
+/* Aviso de imagen de referencia */
+.qcr-aviso-ejemplo { display: inline-block; margin: 0; padding: 0.3rem 0.6rem; font-size: 0.78rem; font-weight: 600; background: #F2EBE8; color: #3A2E3F; border: 1px dashed #5F5266; border-radius: 4px; }
+
+/* Marcadores de datos pendientes (solo administradores) */
+.qcr-pendiente { background: #FFF3CD; color: #5c4400; outline: 1px dashed #b08900; padding: 0 0.25rem; border-radius: 2px; font-weight: 600; }
+.screen-reader-text { border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute !important; width: 1px; word-wrap: normal !important; }
